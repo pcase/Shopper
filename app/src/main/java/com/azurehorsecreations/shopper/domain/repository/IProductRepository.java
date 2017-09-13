@@ -1,7 +1,6 @@
 package com.azurehorsecreations.shopper.domain.repository;
 
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.domain.model.Question;
 
 import java.util.List;
 
@@ -10,7 +9,5 @@ import java.util.List;
  */
 
 public interface IProductRepository {
-
-//    List<Product> getProducts();
-    List<Question> getQuestions();
+    List<Product> getProducts();
 }

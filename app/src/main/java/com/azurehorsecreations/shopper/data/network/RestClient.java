@@ -8,11 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RestClient {
-    private static final String API_KEY = "e0a4274f-45b6-405b-839e-1096222be4fc";
-    private static final String BASE_URL = "https://api.stackexchange.com";
-//    private static final String BASE_URL = "https://walmartlabs-test.appspot.com/_ah/api/walmart/v1";
-    private static final String WALMART_PRODUCTS = "walmartproducts";
-    private static final String PAGE_SIZE = "30";
+    private static final String BASE_URL = "https://walmartlabs-test.appspot.com";
     private static Retrofit retrofit = null;
     private static int mPageNumber = 1;
 

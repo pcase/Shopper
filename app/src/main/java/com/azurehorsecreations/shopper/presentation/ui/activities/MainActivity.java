@@ -9,7 +9,6 @@ import com.azurehorsecreations.shopper.R;
 import com.azurehorsecreations.shopper.data.repository.ProductRepository;
 import com.azurehorsecreations.shopper.domain.executor.impl.ThreadExecutor;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.domain.model.Question;
 import com.azurehorsecreations.shopper.presentation.presenters.MainPresenter;
 import com.azurehorsecreations.shopper.presentation.presenters.MainPresenter.View;
 import com.azurehorsecreations.shopper.presentation.presenters.impl.MainPresenterImpl;
@@ -66,17 +65,7 @@ public class MainActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void displayWelcomeMessage(String msg) {
-        mWelcomeTextView.setText(msg);
-    }
-
-    @Override
     public void displayProductInformation(List<Product> product) {
         mWelcomeTextView.setText(product.get(0).getProductName());
-    }
-
-    @Override
-    public void displayQuestionInformation(List<Question> question) {
-        mWelcomeTextView.setText(question.get(0).getTitle() + "\n " + question.get(0).getLink());
     }
 }

@@ -6,7 +6,6 @@ import com.azurehorsecreations.shopper.domain.executor.MainThread;
 import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.base.AbstractInteractor;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.domain.model.Question;
 
 import java.util.List;
 
@@ -36,51 +35,23 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
         });
     }
 
-//    private void postMessage(final List<Product> products) {
-//        mMainThread.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                mCallback.onProductRetrieved(products);
-//            }
-//        });
-//    }
-
-    private void postMessage(final List<Question> questions) {
+    private void postMessage(final List<Product> products) {
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
-                mCallback.onQuestionRetrieved(questions);
+                mCallback.onProductRetrieved(products);
             }
         });
     }
-
-//    @Override
-//    public void run() {
-//
-//        // retrieve the message
-//        final List<Product> products = mProductRepository.getProducts();
-//
-//        // check if we have failed to retrieve our message
-//        if (products == null || products.size() == 0) {
-//
-//            // notify the failure on the main thread
-//            notifyError();
-//
-//            return;
-//        }
-//
-//        // we have retrieved our message, notify the UI on the main thread
-//        postMessage(products);
-//    }
 
     @Override
     public void run() {
 
         // retrieve the message
-        final List<Question> questions = mProductRepository.getQuestions();
+        final List<Product> products = mProductRepository.getProducts();
 
         // check if we have failed to retrieve our message
-        if (questions == null || questions.size() == 0) {
+        if (products == null || products.size() == 0) {
 
             // notify the failure on the main thread
             notifyError();
@@ -89,6 +60,6 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
         }
 
         // we have retrieved our message, notify the UI on the main thread
-        postMessage(questions);
+        postMessage(products);
     }
 }

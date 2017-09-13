@@ -6,8 +6,6 @@ import com.azurehorsecreations.shopper.domain.executor.MainThread;
 import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.impl.ProductInteractorImpl;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.domain.model.Question;
-import com.azurehorsecreations.shopper.domain.repository.MessageRepository;
 import com.azurehorsecreations.shopper.presentation.presenters.base.AbstractPresenter;
 import com.azurehorsecreations.shopper.presentation.presenters.MainPresenter;
 
@@ -20,7 +18,6 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
         IProductInteractor.Callback {
 
     private MainPresenter.View mView;
-    private MessageRepository mMessageRepository;
     private ProductRepository mProductRepository;
 
     public MainPresenterImpl(Executor executor, MainThread mainThread,
@@ -67,16 +64,10 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
         mView.showError(message);
     }
 
-//    @Override
-//    public void onProductRetrieved(List<Product> products) {
-//        mView.hideProgress();
-//        mView.displayProductInformation(products);
-//    }
-
     @Override
-    public void onQuestionRetrieved(List<Question> questions) {
+    public void onProductRetrieved(List<Product> products) {
         mView.hideProgress();
-        mView.displayQuestionInformation(questions);
+        mView.displayProductInformation(products);
     }
 
     @Override
