@@ -4,11 +4,9 @@ import com.azurehorsecreations.shopper.data.repository.ProductRepository;
 import com.azurehorsecreations.shopper.domain.executor.Executor;
 import com.azurehorsecreations.shopper.domain.executor.MainThread;
 import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
-import com.azurehorsecreations.shopper.domain.interactors.WelcomingInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.impl.ProductInteractorImpl;
-import com.azurehorsecreations.shopper.domain.interactors.impl.WelcomingInteractorImpl;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.domain.model.Product2;
+import com.azurehorsecreations.shopper.domain.model.Question;
 import com.azurehorsecreations.shopper.domain.repository.MessageRepository;
 import com.azurehorsecreations.shopper.presentation.presenters.base.AbstractPresenter;
 import com.azurehorsecreations.shopper.presentation.presenters.MainPresenter;
@@ -69,10 +67,16 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
         mView.showError(message);
     }
 
+//    @Override
+//    public void onProductRetrieved(List<Product> products) {
+//        mView.hideProgress();
+//        mView.displayProductInformation(products);
+//    }
+
     @Override
-    public void onProductRetrieved(List<Product2> products) {
+    public void onQuestionRetrieved(List<Question> questions) {
         mView.hideProgress();
-        mView.displayProductInformation(products);
+        mView.displayQuestionInformation(questions);
     }
 
     @Override

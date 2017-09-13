@@ -7,9 +7,9 @@ import java.util.List;
  */
 
 public class ProductList {
-    List<Product2> products;
+    List<Product> products;
 
-    public List<Product2> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 

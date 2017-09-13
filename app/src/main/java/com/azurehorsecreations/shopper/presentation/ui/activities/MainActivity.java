@@ -2,7 +2,6 @@ package com.azurehorsecreations.shopper.presentation.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -10,11 +9,10 @@ import com.azurehorsecreations.shopper.R;
 import com.azurehorsecreations.shopper.data.repository.ProductRepository;
 import com.azurehorsecreations.shopper.domain.executor.impl.ThreadExecutor;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.domain.model.Product2;
+import com.azurehorsecreations.shopper.domain.model.Question;
 import com.azurehorsecreations.shopper.presentation.presenters.MainPresenter;
 import com.azurehorsecreations.shopper.presentation.presenters.MainPresenter.View;
 import com.azurehorsecreations.shopper.presentation.presenters.impl.MainPresenterImpl;
-import com.azurehorsecreations.shopper.data.repository.WelcomeMessageRepository;
 import com.azurehorsecreations.shopper.presentation.MainThreadImpl;
 
 import java.util.List;
@@ -73,7 +71,12 @@ public class MainActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void displayProductInformation(List<Product2> product) {
-        mWelcomeTextView.setText(product.get(0).getLongDescription());
+    public void displayProductInformation(List<Product> product) {
+        mWelcomeTextView.setText(product.get(0).getProductName());
+    }
+
+    @Override
+    public void displayQuestionInformation(List<Question> question) {
+        mWelcomeTextView.setText(question.get(0).getTitle() + "\n " + question.get(0).getLink());
     }
 }

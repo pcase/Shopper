@@ -1,6 +1,6 @@
 package com.azurehorsecreations.shopper.data.network;
 
-import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.Product_Parcelable;
 
 import java.util.List;
 
@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface RestAPI {
 
-    List<Product> getProducts();
+    List<Product_Parcelable> getProducts();
 
 }

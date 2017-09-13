@@ -1,16 +1,13 @@
 package com.azurehorsecreations.shopper.data.network;
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.View;
 import android.widget.ProgressBar;
 
-import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.Product_Parcelable;
 import com.azurehorsecreations.shopper.utils.CallbackReceiver;
 
 import org.json.JSONArray;
@@ -57,7 +54,7 @@ public class ProductInformationFetcherHandler {
         // Background thread: Get product information
         new Thread() {
             public void run() {
-                final List<Product> productList = getProductInformation();
+                final List<Product_Parcelable> productList = getProductInformation();
                 Message message = new Message();
                 message.obj = productList;
                 messageHandler.sendMessage(message);
@@ -66,7 +63,7 @@ public class ProductInformationFetcherHandler {
 
     }
 
-    public List<Product> getProductInformation() {
+    public List<Product_Parcelable> getProductInformation() {
         HttpsURLConnection urlConnection = null;
         BufferedReader reader = null;
         String productJsonStr = null;
@@ -98,10 +95,10 @@ public class ProductInformationFetcherHandler {
                 return null;
             }
             productJsonStr = buffer.toString();
-            List<Product> productList = parseResultData(productJsonStr);
+            List<Product_Parcelable> productList = parseResultData(productJsonStr);
             inputStream.close();
 
-            for (Product product : productList) {
+            for (Product_Parcelable product : productList) {
                 try {
                     InputStream in = new java.net.URL(product.getProductImageUrl()).openStream();
                     Bitmap bitmap = BitmapFactory.decodeStream(in);
@@ -133,19 +130,19 @@ public class ProductInformationFetcherHandler {
     public Handler messageHandler = new Handler() {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            List<Product> productList = (List<Product>) msg.obj;
+            List<Product_Parcelable> productList = (List<Product_Parcelable>) msg.obj;
             mCallbackReceiver.handleResultData(productList);
         }
     };
 
-    private List<Product> parseResultData(String result) {
-        List<Product> productList = new ArrayList<>();
+    private List<Product_Parcelable> parseResultData(String result) {
+        List<Product_Parcelable> productList = new ArrayList<>();
         try {
             JSONObject jObject = new JSONObject(result);
             JSONArray jArray = jObject.getJSONArray("products");
             for (int i=0; i < jArray.length(); i++) {
                 try {
-                    Product product = new Product();
+                    Product_Parcelable product = new Product_Parcelable();
                     JSONObject item = jArray.getJSONObject(i);
                     if (item.has("productId")) {
                         product.setProductId(item.getString("productId"));

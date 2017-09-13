@@ -12,7 +12,9 @@ import retrofit2.http.Query;
  */
 
 public interface ProductAPIService {
-    @GET("/walmartproducts/e0a4274f-45b6-405b-839e-1096222be4fc/1/30")  //End Url
-    Call<ProductList> fetchProducts();
+//    @GET("/walmartproducts/e0a4274f-45b6-405b-839e-1096222be4fc/1/30")  //End Url
+//    Call<ProductList> fetchProducts();
 
+    @GET("/2.2/questions?order=desc&sort=creation&site=stackoverflow")  //End Url
+    Call<QuestionList> fetchQuestions();
 }

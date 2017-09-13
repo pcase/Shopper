@@ -1,9 +1,6 @@
 package com.azurehorsecreations.shopper.data.network;
 
-import android.view.View;
-
-import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.utils.CallbackReceiver;
+import com.azurehorsecreations.shopper.domain.model.Product_Parcelable;
 
 import java.util.List;
 
@@ -14,7 +11,7 @@ import java.util.List;
 public class RestAPIImpl implements RestAPI {
 
     @Override
-    public List<Product> getProducts() {
+    public List<Product_Parcelable> getProducts() {
         return null;
     }
 }
