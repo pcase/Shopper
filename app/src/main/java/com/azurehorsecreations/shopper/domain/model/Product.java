@@ -14,7 +14,7 @@ public class Product {
     private String shortDescription;
     private String longDescription;
     private String price;
-    private String productImageUrl;
+    private String productImage;
     private double reviewRating;
     private int reviewCount;
     private boolean inStock;
@@ -60,20 +60,12 @@ public class Product {
         this.price = price;
     }
 
-    public Bitmap getProductImage() {
-        return productImageBitmap;
+    public String getProductImage() {
+        return productImage;
     }
 
-    public String getProductImageUrl() {
-        return productImageUrl;
-    }
-
-    public void setProductImageUrl(String productImageUrl) {
-        this.productImageUrl = productImageUrl;
-    }
-
-    public void setProductImage(Bitmap productImage) {
-        this.productImageBitmap = productImage;
+    public void setProductImage(String productImageUrl) {
+        this.productImage = productImageUrl;
     }
 
     public double getReviewRating() {

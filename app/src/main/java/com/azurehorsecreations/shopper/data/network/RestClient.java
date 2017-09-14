@@ -10,7 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestClient {
     private static final String BASE_URL = "https://walmartlabs-test.appspot.com";
     private static Retrofit retrofit = null;
-    private static int mPageNumber = 1;
 
     public static Retrofit getClient() {
         if (retrofit==null) {
@@ -21,5 +20,4 @@ public class RestClient {
         }
         return retrofit;
     }
-
 }

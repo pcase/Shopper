@@ -46,20 +46,13 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
 
     @Override
     public void run() {
-
-        // retrieve the message
         final List<Product> products = mProductRepository.getProducts();
 
-        // check if we have failed to retrieve our message
         if (products == null || products.size() == 0) {
-
-            // notify the failure on the main thread
             notifyError();
-
             return;
         }
 
-        // we have retrieved our message, notify the UI on the main thread
         postMessage(products);
     }
 }

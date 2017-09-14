@@ -32,7 +32,6 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
 
         mView.showProgress();
 
-        // initialize the interactor
         IProductInteractor interactor = new ProductInteractorImpl(
                 mExecutor,
                 mMainThread,
@@ -40,7 +39,6 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
                 mProductRepository
         );
 
-        // run the interactor
         interactor.execute();
     }
 

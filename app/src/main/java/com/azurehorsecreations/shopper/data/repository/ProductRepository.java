@@ -25,14 +25,12 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public List<Product> getProducts() {
-        Log.d("", "ProductRepository.getProducts()");
         apiService = RestClient.getClient().create(ProductAPIService.class);
         fetchProductList();
         return productList;
     }
 
     private void fetchProductList() {
-        Log.d("", "ProductRepository.fetchProductList()");
         Call<ProductList> call = apiService.fetchProducts();
         call.enqueue(new Callback<ProductList>() {
             @Override
