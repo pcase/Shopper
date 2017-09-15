@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
@@ -14,11 +16,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.azurehorsecreations.shopper.R;
-
 import com.azurehorsecreations.shopper.domain.model.Product;
-
-import java.io.InputStream;
-
+import com.azurehorsecreations.shopper.utils.ImageDownloader;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -117,48 +116,33 @@ public class ProductDetailFragment extends Fragment {
             price.setText(product.getPrice());
         }
 
+        if (product.getProductImageBitmap() != null) {
+            productImage.setImageBitmap(product.getProductImageBitmap());
+        }
+
         reviewRating.setText(String.valueOf(product.getReviewRating()));
         reviewCount.setText(String.valueOf(product.getReviewCount()));
+
         if (product.isInStock()) {
             inStock.setText(R.string.yes);
         } else {
             inStock.setText(R.string.no);
         }
-//
-//        new DownloadImageTask(productImage).execute(product.getProductImage());
+
+        loadImage(productImage, product.getProductImage());
         return view;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+    private void loadImage(final ImageView bmImage, String url) {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                Bitmap bitmap = (Bitmap) msg.obj;
+                bmImage.setImageBitmap(bitmap);
+            }
+        };
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bitmap = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                bitmap = BitmapFactory.decodeStream(in);
-                in.close();
-            } catch (Exception e) {
-                Log.e(TAG + ": Error", e.getMessage());
-                e.printStackTrace();
-            };
-            return bitmap;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            progressBar.setVisibility(View.INVISIBLE);
-            bmImage.setImageBitmap(result);
-        }
+        ImageDownloader imageDownloader = new ImageDownloader();
+        imageDownloader.loadImage(url, handler);
     }
 }

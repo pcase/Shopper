@@ -1,4 +1,4 @@
-package com.azurehorsecreations.shopper.presentation.ui;
+package com.azurehorsecreations.shopper.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

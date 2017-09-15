@@ -12,7 +12,7 @@ import com.azurehorsecreations.shopper.R;
 import com.azurehorsecreations.shopper.data.repository.ProductRepository;
 import com.azurehorsecreations.shopper.domain.executor.impl.ThreadExecutor;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.presentation.ProductNavigator;
+import com.azurehorsecreations.shopper.presentation.ui.navigation.ProductNavigator;
 import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter;
 import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter.View;
 import com.azurehorsecreations.shopper.presentation.presenters.impl.ProductPresenterImpl;

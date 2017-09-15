@@ -2,6 +2,7 @@ package com.azurehorsecreations.shopper.presentation.ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.azurehorsecreations.shopper.R;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.utils.ImageDownloader;
+
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -52,6 +55,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         String imageUrl = mProductList.get(position).getProductImage();
         setImage(holder, imageUrl);
         holder.click(mProductList.get(position), listener);
+        holder.productImageView.setDrawingCacheEnabled(true);
+        Bitmap bmap = holder.productImageView.getDrawingCache();
+        mProductList.get(position).setProductImageBitmap(bmap);
     }
 
     @Override

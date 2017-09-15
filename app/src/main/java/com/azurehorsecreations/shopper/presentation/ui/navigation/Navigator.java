@@ -1,4 +1,4 @@
-package com.azurehorsecreations.shopper.presentation;
+package com.azurehorsecreations.shopper.presentation.ui.navigation;
 
 /**
  * Created by pattycase on 9/14/17.

@@ -1,4 +1,4 @@
-package com.azurehorsecreations.shopper.presentation;
+package com.azurehorsecreations.shopper.presentation.ui.navigation;
 
 import android.content.Context;
 import android.content.Intent;

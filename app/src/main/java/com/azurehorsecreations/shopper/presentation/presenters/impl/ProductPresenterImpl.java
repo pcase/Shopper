@@ -6,7 +6,7 @@ import com.azurehorsecreations.shopper.domain.executor.MainThread;
 import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.impl.ProductInteractorImpl;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.presentation.Navigator;
+import com.azurehorsecreations.shopper.presentation.ui.navigation.Navigator;
 import com.azurehorsecreations.shopper.presentation.presenters.base.AbstractPresenter;
 import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter;
 
