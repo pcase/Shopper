@@ -9,13 +9,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.azurehorsecreations.shopper.presentation.ui.activities.ShopperProductActivity">
+        <activity android:name="com.azurehorsecreations.shopper.presentation.ui.activities.ProductActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.azurehorsecreations.shopper.presentation.ui.activities.ProductDetailPagerActivity"
+            android:label=""
+            android:parentActivityName="com.azurehorsecreations.shopper.presentation.ui.activities.ProductActivity">
+        </activity>
     </application>
-
 </manifest>

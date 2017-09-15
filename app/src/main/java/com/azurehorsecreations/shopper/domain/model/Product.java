@@ -8,7 +8,7 @@ import android.os.Parcelable;
  * Product class represents the product model
  */
 
-public class Product {
+public class Product implements Parcelable {
     private String productId;
     private String productName;
     private String shortDescription;
@@ -64,8 +64,8 @@ public class Product {
         return productImage;
     }
 
-    public void setProductImage(String productImageUrl) {
-        this.productImage = productImageUrl;
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 
     public double getReviewRating() {
@@ -99,4 +99,53 @@ public class Product {
     public void setProductImageBitmap(Bitmap productImageBitmap) {
         this.productImageBitmap = productImageBitmap;
     }
+
+    private Product(Parcel in) {
+        productId = in.readString();
+        productName = in.readString();
+        shortDescription = in.readString();
+        longDescription = in.readString();
+        price = in.readString();
+        productImage = in.readString();
+        productImageBitmap = in.readParcelable(Bitmap.class.getClassLoader());
+        reviewRating = in.readDouble();
+        reviewCount = in.readInt();
+        inStock = in.readInt() == 1;
+    }
+
+    public Product() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(productId);
+        out.writeString(productName);
+        out.writeString(shortDescription);
+        out.writeString(longDescription);
+        out.writeString(price);
+        out.writeString(productImage);
+        out.writeParcelable(getProductImageBitmap(), PARCELABLE_WRITE_RETURN_VALUE);
+        out.writeDouble(reviewRating);
+        out.writeInt(reviewCount);
+        out.writeInt(inStock ? 1 : 0);
+    }
+
+    public static final Creator<Product> CREATOR
+            = new Creator<Product>() {
+
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 }

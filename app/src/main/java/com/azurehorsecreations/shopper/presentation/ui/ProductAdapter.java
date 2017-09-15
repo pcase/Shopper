@@ -22,15 +22,16 @@ import butterknife.ButterKnife;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     private static final String TAG = "ProductAdapter";
-    private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
     private List<Product> mProductList;
     private Handler handler;
     private ImageDownloader imageDownloader;
+    private Context mContext;
+    private final OnItemClickListener listener;
 
-    public ProductAdapter(Context context, List<Product> products) {
-        this.mInflater = LayoutInflater.from(context);
+    public ProductAdapter(Context context, List<Product> products, OnItemClickListener listener) {
+        this.mContext = context;
         this.mProductList = products;
+        this.listener = listener;
     }
 
     public Product getItem(int id) {
@@ -50,6 +51,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.productTextView.setText(name);
         String imageUrl = mProductList.get(position).getProductImage();
         setImage(holder, imageUrl);
+        holder.click(mProductList.get(position), listener);
     }
 
     @Override
@@ -57,7 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return mProductList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.product_text)
         protected TextView productTextView;
 
@@ -67,21 +69,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+        public void click(final Product product, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(product);
+                }
+            });
         }
-    }
-
-    public void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 
     public void setImage(final ViewHolder holder, String url) {
@@ -95,5 +92,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         imageDownloader = new ImageDownloader();
         imageDownloader.loadImage(url, handler);
+    }
+
+    public interface OnItemClickListener {
+        void onClick(Product item);
     }
 }

@@ -8,13 +8,13 @@ import android.os.Parcelable;
  * Product class represents the product model
  */
 
-public class Product_Parcelable implements Parcelable {
+public class Product_Not_Parcelable {
     private String productId;
     private String productName;
     private String shortDescription;
     private String longDescription;
     private String price;
-    private String productImageUrl;
+    private String productImage;
     private double reviewRating;
     private int reviewCount;
     private boolean inStock;
@@ -60,20 +60,12 @@ public class Product_Parcelable implements Parcelable {
         this.price = price;
     }
 
-    public Bitmap getProductImage() {
-        return productImageBitmap;
+    public String getProductImage() {
+        return productImage;
     }
 
-    public String getProductImageUrl() {
-        return productImageUrl;
-    }
-
-    public void setProductImageUrl(String productImageUrl) {
-        this.productImageUrl = productImageUrl;
-    }
-
-    public void setProductImage(Bitmap productImage) {
-        this.productImageBitmap = productImage;
+    public void setProductImage(String productImageUrl) {
+        this.productImage = productImageUrl;
     }
 
     public double getReviewRating() {
@@ -107,53 +99,4 @@ public class Product_Parcelable implements Parcelable {
     public void setProductImageBitmap(Bitmap productImageBitmap) {
         this.productImageBitmap = productImageBitmap;
     }
-
-    private Product_Parcelable(Parcel in) {
-        productId = in.readString();
-        productName = in.readString();
-        shortDescription = in.readString();
-        longDescription = in.readString();
-        price = in.readString();
-        productImageUrl = in.readString();
-        productImageBitmap = in.readParcelable(Bitmap.class.getClassLoader());
-        reviewRating = in.readDouble();
-        reviewCount = in.readInt();
-        inStock = in.readInt() == 1;
-    }
-
-    public Product_Parcelable() {
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeString(productId);
-        out.writeString(productName);
-        out.writeString(shortDescription);
-        out.writeString(longDescription);
-        out.writeString(price);
-        out.writeString(productImageUrl);
-        out.writeParcelable(getProductImageBitmap(), PARCELABLE_WRITE_RETURN_VALUE);
-        out.writeDouble(reviewRating);
-        out.writeInt(reviewCount);
-        out.writeInt(inStock ? 1 : 0);
-    }
-
-    public static final Creator<Product_Parcelable> CREATOR
-            = new Creator<Product_Parcelable>() {
-
-        @Override
-        public Product_Parcelable createFromParcel(Parcel in) {
-            return new Product_Parcelable(in);
-        }
-
-        @Override
-        public Product_Parcelable[] newArray(int size) {
-            return new Product_Parcelable[size];
-        }
-    };
 }

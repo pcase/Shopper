@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,9 +12,10 @@ import com.azurehorsecreations.shopper.R;
 import com.azurehorsecreations.shopper.data.repository.ProductRepository;
 import com.azurehorsecreations.shopper.domain.executor.impl.ThreadExecutor;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.presentation.presenters.MainPresenter;
-import com.azurehorsecreations.shopper.presentation.presenters.MainPresenter.View;
-import com.azurehorsecreations.shopper.presentation.presenters.impl.MainPresenterImpl;
+import com.azurehorsecreations.shopper.presentation.ProductNavigator;
+import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter;
+import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter.View;
+import com.azurehorsecreations.shopper.presentation.presenters.impl.ProductPresenterImpl;
 import com.azurehorsecreations.shopper.presentation.MainThreadImpl;
 import com.azurehorsecreations.shopper.presentation.ui.ProductAdapter;
 import com.azurehorsecreations.shopper.presentation.ui.SimpleDividerItemDecoration;
@@ -23,13 +25,14 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ShopperProductActivity extends AppCompatActivity implements View, android.view.View.OnClickListener {
+public class ProductActivity extends AppCompatActivity implements View, ProductAdapter.OnItemClickListener {
+    private static final String TAG = "ShopperProductActivity";
     private static final int NUMBER_OF_COLUMNS = 2;
     @Bind(R.id.welcome_textview)
     TextView mWelcomeTextView;
     @Bind(R.id.recycler_view)
     protected RecyclerView recyclerView;
-    protected MainPresenter mPresenter;
+    protected ProductPresenter mPresenter;
     protected ProductAdapter mAdapter;
 
     @Override
@@ -38,7 +41,7 @@ public class ShopperProductActivity extends AppCompatActivity implements View, a
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mPresenter = new MainPresenterImpl(
+        mPresenter = new ProductPresenterImpl(
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 this,
@@ -74,13 +77,15 @@ public class ShopperProductActivity extends AppCompatActivity implements View, a
     @Override
     public void displayProductInformation(List<Product> productList) {
         mWelcomeTextView.setText(productList.get(0).getProductName());
-        mAdapter = new ProductAdapter(this, productList);
+        mAdapter = new ProductAdapter(this, productList, this);
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onClick(android.view.View view) {
-
+    public void onClick(Product product) {
+        Log.d(TAG, "onClick()");
+        mPresenter.setNavigator(new ProductNavigator(this, ProductDetailPagerActivity.class, product));
+        mPresenter.navigateToNewScreen();
     }
 }
