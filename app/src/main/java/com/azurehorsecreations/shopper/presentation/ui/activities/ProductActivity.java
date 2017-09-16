@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import com.azurehorsecreations.shopper.R;
 import com.azurehorsecreations.shopper.data.repository.ProductRepository;
 import com.azurehorsecreations.shopper.domain.executor.impl.ThreadExecutor;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.presentation.ui.EndlessRecyclerViewScrollListener;
 import com.azurehorsecreations.shopper.presentation.ui.navigation.ProductNavigator;
 import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter;
 import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter.View;
@@ -28,10 +30,18 @@ import butterknife.ButterKnife;
 public class ProductActivity extends AppCompatActivity implements View, ProductAdapter.OnItemClickListener {
     private static final String TAG = "ShopperProductActivity";
     private static final int NUMBER_OF_COLUMNS = 2;
-    @Bind(R.id.welcome_textview)
-    TextView mWelcomeTextView;
+
+    private EndlessRecyclerViewScrollListener mScrollListener;
+
+    @Bind(R.id.message_view)
+    TextView mMessageTextView;
+
     @Bind(R.id.recycler_view)
-    protected RecyclerView recyclerView;
+    protected RecyclerView mRecyclerView;
+
+    @Bind(R.id.progressbar)
+    protected ProgressBar mProgressBar;
+
     protected ProductPresenter mPresenter;
     protected ProductAdapter mAdapter;
 
@@ -48,38 +58,52 @@ public class ProductActivity extends AppCompatActivity implements View, ProductA
                 new ProductRepository()
         );
 
-        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
+        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, NUMBER_OF_COLUMNS);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+
+        mScrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                mMessageTextView.setText("Loading more");
+                mPresenter.resume();
+            }
+        };
+//        mRecyclerView.addOnScrollListener(mScrollListener);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mMessageTextView.setText("onResume()");
         mPresenter.resume();
     }
 
     @Override
     public void showProgress() {
-        mWelcomeTextView.setText("Retrieving...");
+        mMessageTextView.setText(R.string.retrieving);
+        mProgressBar.setVisibility(android.view.View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        Toast.makeText(this, "Retrieved!", Toast.LENGTH_LONG).show();
+        mMessageTextView.setText(R.string.retrieved);
+        mProgressBar.setVisibility(android.view.View.INVISIBLE);
+        Toast.makeText(this, R.string.retrieved, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showError(String message) {
-        mWelcomeTextView.setText(message);
+        mMessageTextView.setText(message);
     }
 
     @Override
     public void displayProductInformation(List<Product> productList) {
-        mWelcomeTextView.setText(productList.get(0).getProductName());
+        mMessageTextView.setText("displayProductInformation");
         mAdapter = new ProductAdapter(this, productList, this);
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
+        mScrollListener.resetState();
     }
 
     @Override

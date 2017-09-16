@@ -24,24 +24,21 @@ public class ProductRepository implements IProductRepository {
     private List<Product> productList;
 
     @Override
-    public List<Product> getProducts() {
+    public void getProducts(final ProductRepositoryCallback callback) {
         apiService = RestClient.getClient().create(ProductAPIService.class);
-        fetchProductList();
-        return productList;
-    }
-
-    private void fetchProductList() {
         Call<ProductList> call = apiService.fetchProducts();
         call.enqueue(new Callback<ProductList>() {
             @Override
             public void onResponse(Call<ProductList> call, Response<ProductList> response) {
                 Log.d("", "Total number of products fetched : " + response.body().getProducts().size());
                 productList = response.body().getProducts();
+                callback.onProductRetrieved(productList);
             }
 
             @Override
             public void onFailure(Call<ProductList> call, Throwable t) {
                 Log.e("", "Got error : " + t.getLocalizedMessage());
+                callback.onRetrievalFailed("Got error : " + t.getLocalizedMessage());
             }
         });
     }

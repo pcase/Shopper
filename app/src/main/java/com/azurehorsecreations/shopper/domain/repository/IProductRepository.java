@@ -9,5 +9,9 @@ import java.util.List;
  */
 
 public interface IProductRepository {
-    List<Product> getProducts();
+    interface ProductRepositoryCallback {
+        void onProductRetrieved(List<Product> products);
+        void onRetrievalFailed(String error);
+    }
+    void getProducts(ProductRepositoryCallback callback);
 }

@@ -6,6 +6,7 @@ import com.azurehorsecreations.shopper.domain.executor.MainThread;
 import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.base.AbstractInteractor;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.repository.IProductRepository;
 
 import java.util.List;
 
@@ -46,13 +47,17 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
 
     @Override
     public void run() {
-        final List<Product> products = mProductRepository.getProducts();
+        IProductRepository.ProductRepositoryCallback callback = new IProductRepository.ProductRepositoryCallback() {
+            @Override
+            public void onProductRetrieved(List<Product> products) {
+                postMessage(products);
+            }
 
-        if (products == null || products.size() == 0) {
-            notifyError();
-            return;
-        }
-
-        postMessage(products);
+            @Override
+            public void onRetrievalFailed(String error) {
+                notifyError();
+            }
+        };
+        mProductRepository.getProducts(callback);
     }
 }

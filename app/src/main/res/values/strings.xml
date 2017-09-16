@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Shopper</string>
     <string name="no_data_available">No data was found</string>
+    <string name="retrieving">Retrieving...></string>
+    <string name="retrieved">Retrieved!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 </resources>

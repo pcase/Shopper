@@ -5,6 +5,7 @@ import com.azurehorsecreations.shopper.domain.executor.Executor;
 import com.azurehorsecreations.shopper.domain.executor.MainThread;
 import com.azurehorsecreations.shopper.domain.interactors.impl.ProductInteractorImpl;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.repository.IProductRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class GetProductTest {
     private Executor                     mExecutor;
     @Mock private ProductRepository mProductRepository;
     @Mock private ProductInteractorImpl.Callback mMockedCallback;
+    @Mock private IProductRepository.ProductRepositoryCallback mProductRepositoryCallback;
 
 
     @Before
@@ -44,10 +46,9 @@ public class GetProductTest {
         ProductInteractorImpl interactor = new ProductInteractorImpl(mExecutor, mMainThread, mMockedCallback, mProductRepository);
         interactor.run();
 
-        Mockito.when(mProductRepository.getProducts())
-                .thenReturn(null);
+        mProductRepository.getProducts(mProductRepositoryCallback);
 
-        Mockito.verify(mProductRepository).getProducts();
+        Mockito.verify(mProductRepository).getProducts(mProductRepositoryCallback);
         Mockito.verifyNoMoreInteractions(mProductRepository);
         Mockito.verify(mMockedCallback).onRetrievalFailed(anyString());
     }
@@ -57,13 +58,12 @@ public class GetProductTest {
 
         List<Product> products = new ArrayList<>();
 
-        when(mProductRepository.getProducts())
-                .thenReturn(products);
+        mProductRepository.getProducts(mProductRepositoryCallback);
 
         ProductInteractorImpl interactor = new ProductInteractorImpl(mExecutor, mMainThread, mMockedCallback, mProductRepository);
         interactor.run();
 
-        Mockito.verify(mProductRepository).getProducts();
+        Mockito.verify(mProductRepository).getProducts(mProductRepositoryCallback);
         Mockito.verifyNoMoreInteractions(mProductRepository);
         Mockito.verify(mMockedCallback).onProductRetrieved(products);
     }
