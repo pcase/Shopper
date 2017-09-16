@@ -1,4 +1,4 @@
-package com.azurehorsecreations.shopper.presentation.ui;
+package com.azurehorsecreations.shopper.presentation.ui.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

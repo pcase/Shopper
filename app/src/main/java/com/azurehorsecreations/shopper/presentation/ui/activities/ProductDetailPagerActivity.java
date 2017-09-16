@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import com.azurehorsecreations.shopper.R;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.presentation.ui.ProductDetailPagerAdapter;
+import com.azurehorsecreations.shopper.presentation.ui.adapters.ProductDetailPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

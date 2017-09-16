@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +18,7 @@ import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter;
 import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter.View;
 import com.azurehorsecreations.shopper.presentation.presenters.impl.ProductPresenterImpl;
 import com.azurehorsecreations.shopper.presentation.MainThreadImpl;
-import com.azurehorsecreations.shopper.presentation.ui.ProductAdapter;
+import com.azurehorsecreations.shopper.presentation.ui.adapters.ProductAdapter;
 import com.azurehorsecreations.shopper.presentation.ui.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -66,7 +65,6 @@ public class ProductActivity extends AppCompatActivity implements View, ProductA
         mScrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                mMessageTextView.setText("Loading more");
                 mPresenter.resume();
             }
         };
@@ -76,19 +74,17 @@ public class ProductActivity extends AppCompatActivity implements View, ProductA
     @Override
     protected void onResume() {
         super.onResume();
-        mMessageTextView.setText("onResume()");
         mPresenter.resume();
     }
 
     @Override
     public void showProgress() {
-        mMessageTextView.setText(R.string.retrieving);
         mProgressBar.setVisibility(android.view.View.VISIBLE);
+        Toast.makeText(this, R.string.retrieving, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void hideProgress() {
-        mMessageTextView.setText(R.string.retrieved);
         mProgressBar.setVisibility(android.view.View.INVISIBLE);
         Toast.makeText(this, R.string.retrieved, Toast.LENGTH_LONG).show();
     }
@@ -112,14 +108,11 @@ public class ProductActivity extends AppCompatActivity implements View, ProductA
             mAdapter = new ProductAdapter(this, productList, this);
             mAdapter.notifyDataSetChanged();
         }
-        mMessageTextView.setText("displayProductInformation");
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
     @Override
     public void onClick(Product product) {
-        Log.d(TAG, "onClick()");
         mPresenter.setNavigator(new ProductNavigator(this, ProductDetailPagerActivity.class, product));
         mPresenter.navigateToNewScreen();
     }

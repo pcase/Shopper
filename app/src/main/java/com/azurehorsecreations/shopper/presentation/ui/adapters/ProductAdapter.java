@@ -1,8 +1,7 @@
-package com.azurehorsecreations.shopper.presentation.ui;
+package com.azurehorsecreations.shopper.presentation.ui.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
