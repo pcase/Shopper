@@ -22,6 +22,7 @@ import com.azurehorsecreations.shopper.presentation.MainThreadImpl;
 import com.azurehorsecreations.shopper.presentation.ui.ProductAdapter;
 import com.azurehorsecreations.shopper.presentation.ui.SimpleDividerItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -69,7 +70,7 @@ public class ProductActivity extends AppCompatActivity implements View, ProductA
                 mPresenter.resume();
             }
         };
-//        mRecyclerView.addOnScrollListener(mScrollListener);
+        mRecyclerView.addOnScrollListener(mScrollListener);
     }
 
     @Override
@@ -99,11 +100,21 @@ public class ProductActivity extends AppCompatActivity implements View, ProductA
 
     @Override
     public void displayProductInformation(List<Product> productList) {
+        if (mAdapter != null && mAdapter.getItemCount() > 0) {
+            List<Product> currentList = new ArrayList<>();
+            for (int i = 0; i < mAdapter.getItemCount(); i++) {
+                currentList.add(mAdapter.getItem(i));
+            }
+            currentList.addAll(productList);
+            mAdapter = new ProductAdapter(this, currentList, this);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mAdapter = new ProductAdapter(this, productList, this);
+            mAdapter.notifyDataSetChanged();
+        }
         mMessageTextView.setText("displayProductInformation");
-        mAdapter = new ProductAdapter(this, productList, this);
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-        mScrollListener.resetState();
+
     }
 
     @Override
