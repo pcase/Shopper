@@ -1,28 +1,28 @@
 package com.azurehorsecreations.shopper.presentation.presenters.impl;
 
 import com.azurehorsecreations.shopper.data.repository.ProductRepository;
-import com.azurehorsecreations.shopper.domain.executor.Executor;
-import com.azurehorsecreations.shopper.domain.executor.MainThread;
+import com.azurehorsecreations.shopper.domain.executor.IExecutor;
+import com.azurehorsecreations.shopper.domain.executor.IMainThread;
 import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.impl.ProductInteractorImpl;
 import com.azurehorsecreations.shopper.domain.model.Product;
-import com.azurehorsecreations.shopper.presentation.ui.navigation.Navigator;
+import com.azurehorsecreations.shopper.presentation.ui.navigation.INavigator;
 import com.azurehorsecreations.shopper.presentation.presenters.base.AbstractPresenter;
-import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter;
+import com.azurehorsecreations.shopper.presentation.presenters.IProductPresenter;
 
 import java.util.List;
 
 /**
  * Created by dmilicic on 12/13/15.
  */
-public class ProductPresenterImpl extends AbstractPresenter implements ProductPresenter,
+public class ProductPresenterImpl extends AbstractPresenter implements IProductPresenter,
         IProductInteractor.Callback {
 
-    private ProductPresenter.View mView;
+    private IProductPresenter.View mView;
     private ProductRepository mProductRepository;
-    private Navigator mNavigator;
+    private INavigator mNavigator;
 
-    public ProductPresenterImpl(Executor executor, MainThread mainThread,
+    public ProductPresenterImpl(IExecutor executor, IMainThread mainThread,
                                 View view, ProductRepository productRepository) {
         super(executor, mainThread);
         mView = view;
@@ -77,7 +77,7 @@ public class ProductPresenterImpl extends AbstractPresenter implements ProductPr
     }
 
     @Override
-    public void setNavigator(Navigator navigator) {
+    public void setNavigator(INavigator navigator) {
         this.mNavigator = navigator;
     }
 

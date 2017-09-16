@@ -5,7 +5,7 @@ package com.azurehorsecreations.shopper.presentation.ui;
  * This interface represents a basic view. All views should implement these common methods.
  * </p>
  */
-public interface BaseView {
+public interface IBaseView {
 
     /**
      * This is a general method used for showing some kind of progress during a background task. For example, this

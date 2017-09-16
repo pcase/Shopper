@@ -6,7 +6,7 @@ package com.azurehorsecreations.shopper.domain.executor;
  * thread.
  * <p/>
  */
-public interface MainThread {
+public interface IMainThread {
 
     /**
      * Make runnable operation run in the main thread.

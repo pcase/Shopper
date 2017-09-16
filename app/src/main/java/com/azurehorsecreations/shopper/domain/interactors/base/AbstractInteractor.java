@@ -1,7 +1,7 @@
 package com.azurehorsecreations.shopper.domain.interactors.base;
 
-import com.azurehorsecreations.shopper.domain.executor.Executor;
-import com.azurehorsecreations.shopper.domain.executor.MainThread;
+import com.azurehorsecreations.shopper.domain.executor.IExecutor;
+import com.azurehorsecreations.shopper.domain.executor.IMainThread;
 
 /**
  * Created by dmilicic on 8/4/15.
@@ -13,15 +13,15 @@ import com.azurehorsecreations.shopper.domain.executor.MainThread;
  * For example, when an activity is getting destroyed then we should probably cancel an interactor
  * but the request will come from the UI thread unless the request was specifically assigned to a background thread.
  */
-public abstract class AbstractInteractor implements Interactor {
+public abstract class AbstractInteractor implements IInteractor {
 
-    protected Executor   mThreadExecutor;
-    protected MainThread mMainThread;
+    protected IExecutor mThreadExecutor;
+    protected IMainThread mMainThread;
 
     protected volatile boolean mIsCanceled;
     protected volatile boolean mIsRunning;
 
-    public AbstractInteractor(Executor threadExecutor, MainThread mainThread) {
+    public AbstractInteractor(IExecutor threadExecutor, IMainThread mainThread) {
         mThreadExecutor = threadExecutor;
         mMainThread = mainThread;
     }
@@ -50,11 +50,7 @@ public abstract class AbstractInteractor implements Interactor {
     }
 
     public void execute() {
-
-        // mark this interactor as running
         this.mIsRunning = true;
-
-        // start running this interactor in a background thread
         mThreadExecutor.execute(this);
     }
 

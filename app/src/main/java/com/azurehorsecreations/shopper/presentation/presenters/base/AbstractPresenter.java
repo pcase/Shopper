@@ -1,18 +1,18 @@
 package com.azurehorsecreations.shopper.presentation.presenters.base;
 
 
-import com.azurehorsecreations.shopper.domain.executor.Executor;
-import com.azurehorsecreations.shopper.domain.executor.MainThread;
+import com.azurehorsecreations.shopper.domain.executor.IExecutor;
+import com.azurehorsecreations.shopper.domain.executor.IMainThread;
 
 /**
  * This is a base class for all presenters which are communicating with interactors. This base class will hold a
  * reference to the Executor and MainThread objects that are needed for running interactors in a background thread.
  */
 public abstract class AbstractPresenter {
-    protected Executor   mExecutor;
-    protected MainThread mMainThread;
+    protected IExecutor mExecutor;
+    protected IMainThread mMainThread;
 
-    public AbstractPresenter(Executor executor, MainThread mainThread) {
+    public AbstractPresenter(IExecutor executor, IMainThread mainThread) {
         mExecutor = executor;
         mMainThread = mainThread;
     }

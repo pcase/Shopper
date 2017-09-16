@@ -9,7 +9,7 @@ import com.azurehorsecreations.shopper.domain.model.Product;
  * Created by pattycase on 9/14/17.
  */
 
-public class ProductNavigator implements Navigator {
+public class ProductNavigator implements INavigator {
     private final Context mActivityContext;
     private final Class<?> mClassToNavigateTo;
     private final Product mProduct;

@@ -1,8 +1,8 @@
 package com.azurehorsecreations.shopper.domain.interactors.impl;
 
 import com.azurehorsecreations.shopper.data.repository.ProductRepository;
-import com.azurehorsecreations.shopper.domain.executor.Executor;
-import com.azurehorsecreations.shopper.domain.executor.MainThread;
+import com.azurehorsecreations.shopper.domain.executor.IExecutor;
+import com.azurehorsecreations.shopper.domain.executor.IMainThread;
 import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.base.AbstractInteractor;
 import com.azurehorsecreations.shopper.domain.model.Product;
@@ -19,8 +19,8 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
     private Callback mCallback;
     private ProductRepository mProductRepository;
 
-    public ProductInteractorImpl(Executor threadExecutor,
-                                 MainThread mainThread,
+    public ProductInteractorImpl(IExecutor threadExecutor,
+                                 IMainThread mainThread,
                                  Callback callback, ProductRepository productRepository) {
         super(threadExecutor, mainThread);
         mCallback = callback;

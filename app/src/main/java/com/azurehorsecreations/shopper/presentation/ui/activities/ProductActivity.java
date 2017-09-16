@@ -14,8 +14,8 @@ import com.azurehorsecreations.shopper.domain.executor.impl.ThreadExecutor;
 import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.presentation.ui.EndlessRecyclerViewScrollListener;
 import com.azurehorsecreations.shopper.presentation.ui.navigation.ProductNavigator;
-import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter;
-import com.azurehorsecreations.shopper.presentation.presenters.ProductPresenter.View;
+import com.azurehorsecreations.shopper.presentation.presenters.IProductPresenter;
+import com.azurehorsecreations.shopper.presentation.presenters.IProductPresenter.View;
 import com.azurehorsecreations.shopper.presentation.presenters.impl.ProductPresenterImpl;
 import com.azurehorsecreations.shopper.presentation.MainThreadImpl;
 import com.azurehorsecreations.shopper.presentation.ui.adapters.ProductAdapter;
@@ -42,7 +42,7 @@ public class ProductActivity extends AppCompatActivity implements View, ProductA
     @Bind(R.id.progressbar)
     protected ProgressBar mProgressBar;
 
-    protected ProductPresenter mPresenter;
+    protected IProductPresenter mPresenter;
     protected ProductAdapter mAdapter;
 
     @Override

@@ -6,7 +6,7 @@ import com.azurehorsecreations.shopper.domain.interactors.base.AbstractInteracto
  * This executor is responsible for running interactors on background threads.
  * <p/>
  */
-public interface Executor {
+public interface IExecutor {
 
     /**
      * This method should call the interactor's run method and thus start the interactor. This should be called

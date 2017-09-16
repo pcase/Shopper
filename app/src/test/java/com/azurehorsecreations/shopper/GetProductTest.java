@@ -1,8 +1,8 @@
 package com.azurehorsecreations.shopper;
 
 import com.azurehorsecreations.shopper.data.repository.ProductRepository;
-import com.azurehorsecreations.shopper.domain.executor.Executor;
-import com.azurehorsecreations.shopper.domain.executor.MainThread;
+import com.azurehorsecreations.shopper.domain.executor.IExecutor;
+import com.azurehorsecreations.shopper.domain.executor.IMainThread;
 import com.azurehorsecreations.shopper.domain.interactors.impl.ProductInteractorImpl;
 import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.domain.repository.IProductRepository;
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
@@ -27,9 +26,9 @@ import static org.mockito.Mockito.when;
  */
 public class GetProductTest {
 
-    private       MainThread                   mMainThread;
+    private IMainThread mMainThread;
     @Mock
-    private Executor                     mExecutor;
+    private IExecutor mExecutor;
     @Mock private ProductRepository mProductRepository;
     @Mock private ProductInteractorImpl.Callback mMockedCallback;
     @Mock private IProductRepository.ProductRepositoryCallback mProductRepositoryCallback;

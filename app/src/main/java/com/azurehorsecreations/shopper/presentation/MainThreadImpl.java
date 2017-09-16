@@ -3,14 +3,14 @@ package com.azurehorsecreations.shopper.presentation;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.azurehorsecreations.shopper.domain.executor.MainThread;
+import com.azurehorsecreations.shopper.domain.executor.IMainThread;
 
 /**
  * This class makes sure that the runnable we provide will be run on the main UI thread.
  */
-public class MainThreadImpl implements MainThread {
+public class MainThreadImpl implements IMainThread {
 
-    private static MainThread sMainThread;
+    private static IMainThread sMainThread;
 
     private Handler mHandler;
 
@@ -23,7 +23,7 @@ public class MainThreadImpl implements MainThread {
         mHandler.post(runnable);
     }
 
-    public static MainThread getInstance() {
+    public static IMainThread getInstance() {
         if (sMainThread == null) {
             sMainThread = new MainThreadImpl();
         }

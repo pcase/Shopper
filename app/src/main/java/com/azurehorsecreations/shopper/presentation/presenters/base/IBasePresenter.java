@@ -1,6 +1,6 @@
 package com.azurehorsecreations.shopper.presentation.presenters.base;
 
-public interface BasePresenter {
+public interface IBasePresenter {
     /**
      * Method that control the lifecycle of the view. It should be called in the view's
      * (Activity or Fragment) onResume() method.

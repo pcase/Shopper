@@ -2,7 +2,7 @@ package com.azurehorsecreations.shopper.data.repository;
 
 import android.util.Log;
 
-import com.azurehorsecreations.shopper.data.network.ProductAPIService;
+import com.azurehorsecreations.shopper.data.network.IProductAPIService;
 import com.azurehorsecreations.shopper.data.network.RestClient;
 import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.domain.model.ProductList;
@@ -19,26 +19,26 @@ import retrofit2.Response;
  */
 
 public class ProductRepository implements IProductRepository {
-
-    private ProductAPIService apiService;
+    private static String TAG = "ProductRepository";
+    private IProductAPIService apiService;
     private List<Product> productList;
     private int page = 1;
 
     @Override
     public void getProducts(final ProductRepositoryCallback callback) {
-        apiService = RestClient.getClient().create(ProductAPIService.class);
+        apiService = RestClient.getClient().create(IProductAPIService.class);
         Call<ProductList> call = apiService.fetchProducts(page++);
         call.enqueue(new Callback<ProductList>() {
             @Override
             public void onResponse(Call<ProductList> call, Response<ProductList> response) {
-                Log.d("", "Total number of products fetched : " + response.body().getProducts().size());
+                Log.d(TAG, "Total number of products fetched : " + response.body().getProducts().size());
                 productList = response.body().getProducts();
                 callback.onProductRetrieved(productList);
             }
 
             @Override
             public void onFailure(Call<ProductList> call, Throwable t) {
-                Log.e("", "Got error : " + t.getLocalizedMessage());
+                Log.e(TAG, "Got error : " + t.getLocalizedMessage());
                 callback.onRetrievalFailed("Got error : " + t.getLocalizedMessage());
             }
         });

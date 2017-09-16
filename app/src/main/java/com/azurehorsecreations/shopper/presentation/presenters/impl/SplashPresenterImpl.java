@@ -1,14 +1,14 @@
 package com.azurehorsecreations.shopper.presentation.presenters.impl;
 
-import com.azurehorsecreations.shopper.presentation.presenters.SplashPresenter;
-import com.azurehorsecreations.shopper.presentation.ui.navigation.Navigator;
+import com.azurehorsecreations.shopper.presentation.presenters.ISplashPresenter;
+import com.azurehorsecreations.shopper.presentation.ui.navigation.INavigator;
 
 /**
  * Created by pattycase on 9/16/17.
  */
 
-public class SplashPresenterImpl implements SplashPresenter {
-    private Navigator mNavigator;
+public class SplashPresenterImpl implements ISplashPresenter {
+    private INavigator mNavigator;
 
     @Override
     public void resume() {
@@ -32,7 +32,7 @@ public class SplashPresenterImpl implements SplashPresenter {
     }
 
     @Override
-    public void setNavigator(Navigator navigator) {
+    public void setNavigator(INavigator navigator) {
         this.mNavigator = navigator;
     }
 
