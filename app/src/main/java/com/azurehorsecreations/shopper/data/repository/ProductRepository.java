@@ -22,11 +22,12 @@ public class ProductRepository implements IProductRepository {
 
     private ProductAPIService apiService;
     private List<Product> productList;
+    private int page = 1;
 
     @Override
     public void getProducts(final ProductRepositoryCallback callback) {
         apiService = RestClient.getClient().create(ProductAPIService.class);
-        Call<ProductList> call = apiService.fetchProducts();
+        Call<ProductList> call = apiService.fetchProducts(page++);
         call.enqueue(new Callback<ProductList>() {
             @Override
             public void onResponse(Call<ProductList> call, Response<ProductList> response) {
