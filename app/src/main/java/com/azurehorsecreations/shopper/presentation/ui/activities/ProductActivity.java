@@ -58,10 +58,6 @@ public class ProductActivity extends AppCompatActivity implements View, ProductA
                 new ProductRepository()
         );
 
-        mMessageTextView = (TextView)findViewById(R.id.message_view);
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        mProgressBar = (ProgressBar)findViewById(R.id.progressbar);
-
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, NUMBER_OF_COLUMNS);
         mRecyclerView.setLayoutManager(gridLayoutManager);

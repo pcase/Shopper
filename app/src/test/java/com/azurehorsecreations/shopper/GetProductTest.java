@@ -31,8 +31,6 @@ public class GetProductTest {
     private IExecutor mExecutor;
     @Mock private ProductRepository mProductRepository;
     @Mock private ProductInteractorImpl.Callback mMockedCallback;
-    @Mock private IProductRepository.ProductRepositoryCallback mProductRepositoryCallback;
-
 
     @Before
     public void setUp() throws Exception {

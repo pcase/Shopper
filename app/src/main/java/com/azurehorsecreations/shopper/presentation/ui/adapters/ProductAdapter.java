@@ -50,7 +50,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
         String name = mProductList.get(position).getProductName();
         holder.productTextView.setText(name);
         String imageUrl = mProductList.get(position).getProductImage();

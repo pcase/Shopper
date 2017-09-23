@@ -5,16 +5,12 @@ import com.azurehorsecreations.shopper.domain.model.Product;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by pattycase on 9/9/17.
  */
 
 public interface IProductRepository {
-    interface ProductRepositoryCallback {
-        void onProductRetrieved(Product products);
-        void onRetrievalFailed(String error);
-    }
     Observable<Product> getProducts();
 }
