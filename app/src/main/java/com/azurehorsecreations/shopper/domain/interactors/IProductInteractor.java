@@ -3,6 +3,7 @@ package com.azurehorsecreations.shopper.domain.interactors;
 import com.azurehorsecreations.shopper.domain.interactors.base.IInteractor;
 import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.ProductResponse;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public interface IProductInteractor extends IInteractor {
     interface Callback {
-        void onProductRetrieved(Product products);
+        void onProductRetrieved(ProductResponse products);
         void onRetrievalFailed(String error);
     }
 }

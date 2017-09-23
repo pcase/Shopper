@@ -6,6 +6,7 @@ import com.azurehorsecreations.shopper.domain.executor.IMainThread;
 import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.impl.ProductInteractorImpl;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.ProductResponse;
 import com.azurehorsecreations.shopper.presentation.ui.navigation.INavigator;
 import com.azurehorsecreations.shopper.presentation.presenters.base.AbstractPresenter;
 import com.azurehorsecreations.shopper.presentation.presenters.IProductPresenter;
@@ -65,7 +66,7 @@ public class ProductPresenterImpl extends AbstractPresenter implements IProductP
     }
 
     @Override
-    public void onProductRetrieved(Product products) {
+    public void onProductRetrieved(ProductResponse products) {
         mView.hideProgress();
         mView.displayProductInformation(products);
     }

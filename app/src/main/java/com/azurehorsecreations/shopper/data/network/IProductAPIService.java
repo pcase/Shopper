@@ -3,6 +3,7 @@ package com.azurehorsecreations.shopper.data.network;
 import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.domain.model.ProductList;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.ProductResponse;
 
 import java.util.List;
 
@@ -25,5 +26,5 @@ public interface IProductAPIService {
 //    Observable<List<Product>> fetchProducts(@Path("page") int page);
 
     @GET("/_ah/api/walmart/v1/walmartproducts/e0a4274f-45b6-405b-839e-1096222be4fc/{page}/30")
-    Observable<Product> fetchProducts(@Path("page") int page);
+    Observable<ProductResponse> fetchProducts(@Path("page") int page);
 }

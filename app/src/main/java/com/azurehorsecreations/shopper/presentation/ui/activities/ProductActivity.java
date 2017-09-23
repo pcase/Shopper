@@ -12,6 +12,7 @@ import com.azurehorsecreations.shopper.R;
 import com.azurehorsecreations.shopper.data.repository.ProductRepository;
 import com.azurehorsecreations.shopper.domain.executor.impl.ThreadExecutor;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.ProductResponse;
 import com.azurehorsecreations.shopper.presentation.ui.EndlessRecyclerViewScrollListener;
 import com.azurehorsecreations.shopper.presentation.ui.navigation.ProductNavigator;
 import com.azurehorsecreations.shopper.presentation.presenters.IProductPresenter;
@@ -95,19 +96,18 @@ public class ProductActivity extends AppCompatActivity implements View, ProductA
     }
 
     @Override
-    public void displayProductInformation(Product productList) {
+    public void displayProductInformation(ProductResponse response) {
         if (mAdapter != null && mAdapter.getItemCount() > 0) {
             List<Product> currentList = new ArrayList<>();
             for (int i = 0; i < mAdapter.getItemCount(); i++) {
                 currentList.add(mAdapter.getItem(i));
             }
-//            currentList.addAll(productList);
-            currentList.add(productList);
+            currentList.addAll(response.getProducts());
             mAdapter = new ProductAdapter(this, currentList, this);
             mAdapter.notifyDataSetChanged();
         } else {
             List<Product> products = new ArrayList<>();
-            products.add(productList);
+            products.addAll(response.getProducts());
             mAdapter = new ProductAdapter(this, products, this);
             mAdapter.notifyDataSetChanged();
         }

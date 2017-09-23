@@ -7,9 +7,12 @@ import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.base.AbstractInteractor;
 import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.ProductResponse;
 import com.azurehorsecreations.shopper.domain.repository.IProductRepository;
 
 import org.reactivestreams.Subscription;
+
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,7 +46,7 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
         });
     }
 
-    private void postMessage(final Product products) {
+    private void postMessage(final ProductResponse products) {
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
@@ -57,7 +60,7 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
         mProductRepository.getProducts()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Product>() {
+                .subscribe(new Observer<ProductResponse>() {
 
                     @Override
                     public void onError(Throwable e) {
@@ -75,7 +78,7 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
                     }
 
                     @Override
-                    public void onNext(Product products){
+                    public void onNext(@NonNull ProductResponse products) {
                         postMessage(products);
                     }
                 });

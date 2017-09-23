@@ -5,6 +5,7 @@ import com.azurehorsecreations.shopper.data.network.IProductAPIService;
 
 import com.azurehorsecreations.shopper.data.network.RestClientSingleton;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.ProductResponse;
 import com.azurehorsecreations.shopper.domain.repository.IProductRepository;
 
 import org.reactivestreams.Subscription;
@@ -22,11 +23,11 @@ import retrofit2.Response;
 
 public class ProductRepository implements IProductRepository {
     private static String TAG = "ProductRepository";
-    private List<Product> productList;
+    private ProductResponse productList;
     private int page = 1;
 
     @Override
-    public Observable<Product> getProducts() {
+    public Observable<ProductResponse> getProducts() {
         return Observable.defer(() -> RestClientSingleton.getInstance().getProducts(page++));
     }
 }

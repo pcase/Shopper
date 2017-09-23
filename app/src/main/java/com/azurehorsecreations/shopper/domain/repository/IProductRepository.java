@@ -2,6 +2,7 @@ package com.azurehorsecreations.shopper.domain.repository;
 
 import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.ProductResponse;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ import io.reactivex.Observable;
  */
 
 public interface IProductRepository {
-    Observable<Product> getProducts();
+    Observable<ProductResponse> getProducts();
 }
