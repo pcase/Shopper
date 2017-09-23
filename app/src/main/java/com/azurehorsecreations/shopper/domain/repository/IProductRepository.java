@@ -1,8 +1,11 @@
 package com.azurehorsecreations.shopper.domain.repository;
 
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.Product;
 
 import java.util.List;
+
+import rx.Observable;
 
 /**
  * Created by pattycase on 9/9/17.
@@ -10,8 +13,8 @@ import java.util.List;
 
 public interface IProductRepository {
     interface ProductRepositoryCallback {
-        void onProductRetrieved(List<Product> products);
+        void onProductRetrieved(Product products);
         void onRetrievalFailed(String error);
     }
-    void getProducts(ProductRepositoryCallback callback);
+    Observable<Product> getProducts();
 }

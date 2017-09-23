@@ -12,7 +12,7 @@ import com.azurehorsecreations.shopper.domain.model.Product;
 public class ProductNavigator implements INavigator {
     private final Context mActivityContext;
     private final Class<?> mClassToNavigateTo;
-    private final Product mProduct;
+    private Product mProduct;
 
     public ProductNavigator(Context activityContext, Class<?> cls, Product product) {
         this.mActivityContext = activityContext;

@@ -15,6 +15,7 @@ import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.utils.ImageDownloader;
 
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -49,6 +50,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
         String name = mProductList.get(position).getProductName();
         holder.productTextView.setText(name);
         String imageUrl = mProductList.get(position).getProductImage();

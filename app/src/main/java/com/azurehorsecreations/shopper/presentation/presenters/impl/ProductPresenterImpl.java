@@ -65,7 +65,7 @@ public class ProductPresenterImpl extends AbstractPresenter implements IProductP
     }
 
     @Override
-    public void onProductRetrieved(List<Product> products) {
+    public void onProductRetrieved(Product products) {
         mView.hideProgress();
         mView.displayProductInformation(products);
     }

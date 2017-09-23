@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.azurehorsecreations.shopper.R;
 import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.utils.ImageDownloader;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 

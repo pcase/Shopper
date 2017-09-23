@@ -6,9 +6,18 @@ import com.azurehorsecreations.shopper.domain.executor.IMainThread;
 import com.azurehorsecreations.shopper.domain.interactors.IProductInteractor;
 import com.azurehorsecreations.shopper.domain.interactors.base.AbstractInteractor;
 import com.azurehorsecreations.shopper.domain.model.Product;
+import com.azurehorsecreations.shopper.domain.model.Product;
 import com.azurehorsecreations.shopper.domain.repository.IProductRepository;
 
 import java.util.List;
+
+import rx.Observable;
+import rx.Observer;
+import rx.Single;
+import rx.SingleSubscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * This is an interactor boilerplate with a reference to a model repository.
@@ -36,7 +45,7 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
         });
     }
 
-    private void postMessage(final List<Product> products) {
+    private void postMessage(final Product products) {
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
@@ -47,17 +56,36 @@ public class ProductInteractorImpl extends AbstractInteractor implements IProduc
 
     @Override
     public void run() {
-        IProductRepository.ProductRepositoryCallback callback = new IProductRepository.ProductRepositoryCallback() {
-            @Override
-            public void onProductRetrieved(List<Product> products) {
-                postMessage(products);
-            }
+        Subscription mProductSubscription = mProductRepository.getProducts()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Product>() {
+                    @Override
+                    public void onCompleted() {
+                        ;
+                    }
 
-            @Override
-            public void onRetrievalFailed(String error) {
-                notifyError();
-            }
-        };
-        mProductRepository.getProducts(callback);
+                    @Override
+                    public void onError(Throwable e) {
+                        notifyError();
+                    }
+
+                    @Override
+                    public void onNext(Product products){
+                        postMessage(products);
+                    }
+                });
+//        IProductRepository.ProductRepositoryCallback callback = new IProductRepository.ProductRepositoryCallback() {
+//            @Override
+//            public void onProductRetrieved(Product products) {
+//                postMessage(products);
+//            }
+//
+//            @Override
+//            public void onRetrievalFailed(String error) {
+//                notifyError();
+//            }
+//        };
+        mProductRepository.getProducts();
     }
 }
