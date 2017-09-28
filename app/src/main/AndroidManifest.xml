@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.azurehorsecreations.shopper"
+<manifest package="com.azurehorsecreations.photoalbum"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:name="com.azurehorsecreations.shopper.AndroidApplication"
+        android:name="com.azurehorsecreations.photoalbum.AndroidApplication"
         android:allowBackup="true"
         android:icon="@drawable/walmart"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.azurehorsecreations.shopper.presentation.ui.activities.SplashActivity"
+            android:name="com.azurehorsecreations.photoalbum.presentation.ui.activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,12 +18,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.azurehorsecreations.shopper.presentation.ui.activities.ProductActivity"
+            android:name="com.azurehorsecreations.photoalbum.presentation.ui.activities.PhotoActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name="com.azurehorsecreations.shopper.presentation.ui.activities.ProductDetailPagerActivity"
-            android:parentActivityName="com.azurehorsecreations.shopper.presentation.ui.activities.ProductActivity">
+            android:name="com.azurehorsecreations.photoalbum.presentation.ui.activities.PhotoDetailPagerActivity"
+            android:parentActivityName="com.azurehorsecreations.photoalbum.presentation.ui.activities.PhotoActivity">
         </activity>
     </application>
 </manifest>
